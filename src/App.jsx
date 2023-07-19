@@ -5,36 +5,29 @@ import './App.css'
 import LoginPage from './component/pages/login.jsx'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Sidebar from './component/sidebar/sidebar'
+import Notice from './component/pages/notice';
+import { Container } from 'postcss'
 
 function App() {
-  const sidebar_data = [
-    { title: "Dashboard", slug: "/", icon: "" },
-    { title: "Blogs", slug: "/blog", icon: "" },
-    { title: "Faq", slug: "/faq", icon: "" },
-    { title: "Gallerys", slug: "/gallerys", icon: "" },
-    { title: "Catalog", slug: "/products", icon: "" },
-    { title: "Pop Up", slug: "/popup", icon: "" },
-    { title: "Slider", slug: "/slider", icon: "" },
-    { title: "Pages", slug: "/pages", icon: "" },
-    { title: "Contacts", slug: "/contacts", icon: "" },
-    { title: "Certificates", slug: "/certificate", icon: "" },
-    { title: "Testmonial", slug: "/testmonial", icon: "" },
-    { title: "Subscribes", slug: "/subscribes", icon: "" },
- 
-  ];
+
+  const currentPath = window.location.pathname;
+
 
   return (
-    <>
-    <div className="sidebar__section">
-            <Sidebar Logo={Logo} sidebar_data={sidebar_data} />
-          </div>
-    <Router>
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/dashboard" element={<LoginPage />}/>
-    </Routes>
-    </Router>
-    </>
+    <div className='App'>
+      {currentPath !== "/login" && <Sidebar />}
+      <div className="content">
+        <Router>
+          <Container>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/notice" element={<Notice />} />
+          </Routes>
+          </Container>
+        </Router>
+      </div>
+    </div>
   )
 }
 
