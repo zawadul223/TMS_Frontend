@@ -2,8 +2,8 @@ import React from "react";
 
 export const SidebarData = [
     {
-        title: "Notice",
-        link: "/notice"
+        title: "All Notice",
+        link: "/allnotice"
     },
 
     {

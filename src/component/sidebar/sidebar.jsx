@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../App.css'
-import {SidebarData} from "./sidebar_data"
+import { SidebarData } from "./sidebar_data"
 import Logo from '../../assets/bjit-logo2.svg'
 import { key } from 'localforage';
-//import { Link } from 'react-router-dom';
+import { Container, Button } from 'react-bootstrap';
 
 function Sidebar() {
   return (
@@ -12,9 +12,9 @@ function Sidebar() {
         <img src={Logo} alt='Logo' />
       </div>
       <ul className='SidebarList'>
-        {SidebarData.map((val,key)=>{
-          return(
-            <li key={key} className='row' id={window.location.pathname == val.link ? "active" : " "} onClick={()=>{window.location.pathname = val.link}}>
+        {SidebarData.map((val, key) => {
+          return (
+            <li key={key} className='row' id={window.location.pathname == val.link ? "active" : " "} onClick={() => { window.location.pathname = val.link }}>
               {" "}
               <div id="title">{val.title}</div>
             </li>

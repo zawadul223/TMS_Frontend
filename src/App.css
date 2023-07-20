@@ -1,5 +1,5 @@
-.App{
-  width: 100vw;
+.App {
+  display: flex;
   height: 100vh;
 }
 
@@ -101,4 +101,27 @@ body{
 
 * {
   box-sizing: border-box;
+}
+
+.content {
+  /* Add styles for the content column */
+  flex: 1;
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+.logout {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  text-align: center;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
