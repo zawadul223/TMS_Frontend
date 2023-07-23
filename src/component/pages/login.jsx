@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import App from '../../App';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -66,26 +67,16 @@ function LoginPage() {
             />
           </div>
 
-          {loginStatus === true && <div className="alert alert-success">Login successful!</div>}
+          {loginStatus === true && 
+          <div className="alert alert-success">Login successful!</div> }
           {loginStatus === false && <div className="alert alert-danger">Login failed. Please try again.</div>}
-
-          <div className="mb-3">
-            <div className="custom-control custom-checkbox">
-              <input type="checkbox" className="custom-control-input" id="customCheck1" />
-              <label className="custom-control-label" htmlFor="customCheck1">
-                Remember me
-              </label>
-            </div>
-          </div>
 
           <div className="d-grid">
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </div>
-          <p className="forgot-password text-right">
-            <a href="/sign-up">Sign Up</a>
-          </p>
+          
         </form>
       </div>
     </div>

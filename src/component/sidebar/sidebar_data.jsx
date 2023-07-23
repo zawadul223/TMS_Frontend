@@ -11,6 +11,10 @@ export const SidebarData = [
         link: "/batch"
     },
     {
+        title: "Batch Detail",
+        link: "/batch_detail"
+    },
+    {
         title: "Course",
         link: "/course"
     }
