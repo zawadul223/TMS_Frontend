@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 //import UserDropdown from './component/user_icon/user_icon'
 import LoginPage from './component/pages/login.jsx'
@@ -29,32 +29,35 @@ function App() {
     <div className='App'>
       {isLoggedIn && (
         <>
-        <Sidebar /> 
-        
+          <Sidebar setIsLoggedIn={setIsLoggedIn} />
+
         </>
-      
+
       )}
-      
+
       <div className="content">
-        
-          <Routes>
-            {isLoggedIn ? (
-              <>
-              
-            <Route path="/allnotice" element={<Notice />} />
-            <Route path='/batch' element={<Batches />} />
-            <Route path='/batch_detail' element={<BatchDetails />} />
-            <Route path='/traineeRegister' element={<TraineeRegistrationPage />} />
-              </>
-            ):(
+
+        <Routes>
+          {isLoggedIn ? (
+            <>
+              <Route path="/" element={<Notice />} />
+              <Route path="/allnotice" element={<Notice />} />
+              <Route path='/batch' element={<Batches />} />
+              <Route path='/batch_detail' element={<BatchDetails />} />
+              <Route path='/traineeRegister' element={<TraineeRegistrationPage />} />
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
               <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
-            )}
-            
-            
-          </Routes>
-        
+            </>
+          )}
+
+
+        </Routes>
+
       </div>
-      
+
     </div>
   )
 }

@@ -4,19 +4,19 @@ import { SidebarData } from "./sidebar_data"
 import Logo from '../../assets/bjit-logo2.svg'
 import { key } from 'localforage';
 import { Container, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-function Sidebar() {
+function Sidebar({setIsLoggedIn}) {
+  const navigate = useNavigate();
   const handleLogout = () => {
     // Clear user authentication-related data from localStorage
     localStorage.removeItem("userToken");
     localStorage.removeItem("email")
     localStorage.removeItem("role")
     localStorage.removeItem("id")
-    window.location.reload();
+    setIsLoggedIn(false)
 
     
-    navigate("/login"); // Use navigate instead of useHistory
-    //window.location.reload();
   };
   return (
     <div className='Sidebar'>
