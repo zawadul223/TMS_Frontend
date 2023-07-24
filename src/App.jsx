@@ -9,7 +9,7 @@ import Notice from './component/pages/notice';
 import { Container } from 'react-bootstrap';
 import Batches from './component/pages/batches';
 import BatchDetails from './component/pages/batch_detail';
-import TraineeRegistrationPage from './component/pages/register';
+import TraineeRegistrationPage from './component/pages/register_trainee';
 
 
 function App() {

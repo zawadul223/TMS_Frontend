@@ -74,7 +74,7 @@ const Batches = () => {
     <div>
       <Container>
         <h1 className="mb-4">All Batches</h1>
-        <Button variant="primary" onClick={() => setShowModal(true)}>Create New Batch</Button>
+        <Button variant="primary" className='mb-3' onClick={() => setShowModal(true)}>Create New Batch</Button>
 
         <Table striped bordered hover>
           <thead>

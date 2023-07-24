@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-
 const TraineeRegistrationPage = () => {
     const [traineeData, setTraineeData] = useState({
         name: '',
@@ -16,78 +15,45 @@ const TraineeRegistrationPage = () => {
         address: '',
         password: '',
     });
-
-    const [traineePhoto, setTraineePhoto] = useState(null);
     const [registrationStatus, setRegistrationStatus] = useState(false);
-    const [photoUploadStatus, setPhotoUploadStatus] = useState(false);
-    const [traineeId, setTraineeId] = useState(null);
+    //const [traineeId, setTraineeId] = useState(null);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setTraineeData({ ...traineeData, [name]: value });
     };
 
-    const handlePhotoChange = (e) => {
-        // Get the selected file from the input
-        const file = e.target.files[0];
-        setTraineePhoto(file);
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        // ... (Submit the text data and get the trainee ID as a response)
 
+        // Send traineeData to the API
         fetch('http://localhost:8080/user/register/trainee', {
-    method: 'POST',
-    crossDomain: true,
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    body: JSON.stringify(traineeData),
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error('Trainee registration failed');
-      }
-    })
-    .then((data) => {
-      // Extract the traineeId from the response
-      const traineeId = data.id;
-      console.log('Trainee ID:', traineeId);
+            method: 'POST',
+            crossDomain: true,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
+            body: JSON.stringify(traineeData),
+        })
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error('Trainee registration failed');
+                }
+            })
+            .then((data) => {
 
-      // Construct the photo upload URL with the traineeId
-      const photoUploadUrl = `http://localhost:8080/user/photo/trainee/${traineeId}`;
+                // Set the registration status to true to display the success message
+                setRegistrationStatus(true);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
-      // Use the FormData API to append the photo and other data
-      const formData = new FormData();
-      formData.append('file', traineePhoto);
-      // Append other data as needed
-
-      // Send the photo upload request
-      return fetch(photoUploadUrl, {
-        method: 'POST',
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: formData,
-      });
-    })
-    .then((photoRes) => {
-      if (photoRes.ok) {
-        // Photo uploaded successfully
-        console.log('Photo uploaded successfully');
-      } else {
-        throw new Error('Photo upload failed');
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
     return (
         <Container className="d-flex justify-content-center align-items-center vh-100">
             <Card className="p-4 shadow" style={{ width: '800px' }}>
@@ -106,16 +72,6 @@ const TraineeRegistrationPage = () => {
                                     onChange={handleChange}
                                 />
                             </Form.Group>
-
-                            {/* <Form.Group controlId="traineePhoto">
-                <Form.Label>Trainee Photo</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="traineePhoto"
-                  value={traineeData.traineePhoto}
-                  onChange={handleChange}
-                />
-              </Form.Group> */}
 
                             <Form.Group controlId="gender">
                                 <Form.Label>Gender</Form.Label>
@@ -216,29 +172,19 @@ const TraineeRegistrationPage = () => {
 
                         </Col>
                     </Row>
-                    <div>
-                        <label htmlFor="traineePhoto">Upload Trainee Photo:</label>
-                        <input
-                            type="file"
-                            id="traineePhoto"
-                            name="traineePhoto"
-                            accept="image/*"
-                            onChange={handlePhotoChange}
-                        />
-                    </div>
 
                     <Button variant="primary" type="submit" className="w-100 mt-4">
                         Submit
                     </Button>
                 </Form>
                 {registrationStatus && (
-                    <div className="alert alert-success" role="alert">
-                        Registration Successful!
-                    </div>
-                )}
-                {photoUploadStatus && <div>Photo Upload Successful!</div>}
-
+                <div className="alert alert-success mt-3" role="alert">
+                    Registration Successful!
+                </div>
+            )}
             </Card>
+            
+            
         </Container>
     );
 };
