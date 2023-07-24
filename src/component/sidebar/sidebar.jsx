@@ -6,6 +6,18 @@ import { key } from 'localforage';
 import { Container, Button } from 'react-bootstrap';
 
 function Sidebar() {
+  const handleLogout = () => {
+    // Clear user authentication-related data from localStorage
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("email")
+    localStorage.removeItem("role")
+    localStorage.removeItem("id")
+    window.location.reload();
+
+    
+    navigate("/login"); // Use navigate instead of useHistory
+    //window.location.reload();
+  };
   return (
     <div className='Sidebar'>
       <div className='logo'>
@@ -19,7 +31,20 @@ function Sidebar() {
               <div id="title">{val.title}</div>
             </li>
           )
+          
         })}
+      </ul>
+      <ul className='SidebarList' >
+        <li className = "row">
+        <Button
+              variant="contained"
+              color="Danger"
+              onClick={handleLogout}
+            >
+               Logout
+            </Button>
+        </li>
+      
       </ul>
     </div>
   );

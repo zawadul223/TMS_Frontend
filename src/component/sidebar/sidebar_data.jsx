@@ -17,6 +17,10 @@ export const SidebarData = [
     {
         title: "Course",
         link: "/course"
+    },
+    {
+        title: "Trainee Register",
+        link: "/traineeRegister"
     }
 
 ]

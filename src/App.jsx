@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './App.css'
 //import UserDropdown from './component/user_icon/user_icon'
 import LoginPage from './component/pages/login.jsx'
@@ -9,16 +9,25 @@ import Notice from './component/pages/notice';
 import { Container } from 'react-bootstrap';
 import Batches from './component/pages/batches';
 import BatchDetails from './component/pages/batch_detail';
+import TraineeRegistrationPage from './component/pages/register';
 
 
 function App() {
 
   const currentPath = window.location.pathname;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //console.log(localStorage.getItem("userToken"));
 
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    if (userToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div className='App'>
-      {currentPath !== "/login" && (
+      {isLoggedIn && (
         <>
         <Sidebar /> 
         
@@ -27,14 +36,23 @@ function App() {
       )}
       
       <div className="content">
-        <Router>
+        
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            {isLoggedIn ? (
+              <>
+              
             <Route path="/allnotice" element={<Notice />} />
             <Route path='/batch' element={<Batches />} />
             <Route path='/batch_detail' element={<BatchDetails />} />
+            <Route path='/traineeRegister' element={<TraineeRegistrationPage />} />
+              </>
+            ):(
+              <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
+            )}
+            
+            
           </Routes>
-        </Router>
+        
       </div>
       
     </div>

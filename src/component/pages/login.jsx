@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import App from '../../App';
+import { useNavigate } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 
-function LoginPage() {
+function LoginPage({setIsLoggedIn}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginStatus, setLoginStatus] = useState(null); // null for initial state, true for success, false for error
+  //const history = useHistory();
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,13 +30,28 @@ function LoginPage() {
       .then((res) => {
         if (res.ok) {
           setLoginStatus(true);
+          
+          // localStorage.setItem("userToken",res.data.token);
+          // Use the navigate function to redirect to App component on successful login
+          setTimeout(() => {
+            console.log("navigating");
+            navigate('/');
+            setIsLoggedIn(true)
+
+          }, 1000);
+
+
         } else {
           setLoginStatus(false);
         }
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log(data.token); 
+        localStorage.setItem("userToken",data.token);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("id", data.id);
         // Handle additional data if needed
       })
       .catch((error) => {
@@ -40,6 +59,7 @@ function LoginPage() {
         setLoginStatus(false);
       });
   }
+
 
   return (
     <div className="auth-wrapper">
@@ -66,10 +86,6 @@ function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
-          {loginStatus === true && 
-          <div className="alert alert-success">Login successful!</div> }
-          {loginStatus === false && <div className="alert alert-danger">Login failed. Please try again.</div>}
 
           <div className="d-grid">
             <button type="submit" className="btn btn-primary">
