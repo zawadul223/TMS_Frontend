@@ -10,6 +10,8 @@ import { Container } from 'react-bootstrap';
 import Batches from './component/pages/batches';
 import BatchDetails from './component/pages/batch_detail';
 import TraineeRegistrationPage from './component/pages/register_trainee';
+import TrainerRegistrationPage from './component/pages/register_trainer';
+import ClassroomPage from './component/pages/classroom';
 
 
 function App() {
@@ -45,6 +47,8 @@ function App() {
               <Route path='/batch' element={<Batches />} />
               <Route path='/batch_detail' element={<BatchDetails />} />
               <Route path='/traineeRegister' element={<TraineeRegistrationPage />} />
+              <Route path='/trainerRegister' element={<TrainerRegistrationPage />} />
+              <Route path='/classroom' element={<ClassroomPage />}/>
             </>
           ) : (
             <>
